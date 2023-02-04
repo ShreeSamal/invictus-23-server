@@ -6,16 +6,16 @@ const Users = require("../model/user");
 const login = async (req, res) => {
   Users.findOne({ email: req.body.email }, (err, user) => {
     if (err) {
-      res.status(500).send({ message: err });
+      res.status(500).json({ message: err });
       return;
     }
     if (!user) {
-      return res.status(404).send({ message: "User Not found." });
+      return res.status(404).json({ message: "User Not found." });
     }
     if (user.password != req.body.password) {
-      return res.status(401).send({ message: "Invalid Password" });
+      return res.status(401).json({ message: "Invalid Password" });
     }
-    res.status(200).send({ message: "Login Successful" });
+    res.status(200).json({ message: "Login Successful" });
   });
 };
 
@@ -23,13 +23,13 @@ const login = async (req, res) => {
 const register = async (req, res) => {
   Users.create(req.body, (err, user) => {
     if (err) {
-      res.status(500).send({ message: err });
+      res.status(500).json({ message: err });
       return;
     }
     if (!user) {
-      return res.status(404).send({ message: "Validation Error" });
+      return res.status(404).json({ message: "Validation Error" });
     }
-    res.status(200).send({ message: "User Registered Successfully" });
+    res.status(200).json({ message: "User Registered Successfully" });
   });
 };
 
